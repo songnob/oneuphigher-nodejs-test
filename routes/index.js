@@ -24,6 +24,12 @@ router.get( '/login', function( req, res ) {
     } );
 } );
 
+router.get( '/register', function( req, res ) {
+    res.render( 'register', {
+        title: 'Register'
+    } );
+} );
+
 router.use( function( req, res, next ) {
 
     // check header or url parameters or post parameters for token
@@ -41,6 +47,7 @@ router.use( function( req, res, next ) {
             else {
                 // if everything is good, save to request for use in other routes
                 req.decoded = decoded;
+                req.access_token = token;
                 next();
             }
         } );

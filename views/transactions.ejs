@@ -1,19 +1,123 @@
-<h1>Transactions page</h1>
-<p>Your token:<span id="token"><%=token%></span></p>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">OneUpHigher</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>              
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Hi <%=name%></a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
 
-<h2>Create Stripe Payments</h2>
 
-<label for="amount">Amount:</label>
-<input type="number" name="amount" id="amount"><br>
-<label for="currency">Currency: </label>
-<input type="text" name="currency" id="currency"><br>
-<label for="cardnumber">Card number </label>
-<input type="text" name="customerid" id="cardnumber" class="card-number"><br>
-<label for="cvc">CVC: </label>
-<input type="number" name="cvc" id="cvc" class="card-cvc"><br>
-<label for="card-expiry-month">Expired Month: </label>
-<input type="number" name="card-expiry-month" id="card-expiry-month" class="card-expiry-month"><br>
-<label for="card-expiry-year">Expired Year: </label>
-<input type="number" name="card-expiry-year" id="card-expiry-year" class="card-expiry-year"><br>
-<p class="payment-errors"></p>
-<input type="button" class="submittransaction" id="submittransaction" value="Submit">
+<div class="container" style="padding-top: 70px">
+
+    <!-- Main component for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <h3>Transactions page</h3>    
+        <input type="hidden" id="token" value="<%=token%>"/>
+        <input type="hidden" id="use_saved_card" value="<%=use_saved_card%>"/>
+
+        <form class="form-horizontal" id="payment-form">
+
+            <div class="form-group">
+                <label for="amount" class="col-sm-2 control-label">Amount</label>
+                <div class="col-sm-6">
+                    <input type="number" class="form-control" id="amount" placeholder="Amount">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="currency" class="col-sm-2 control-label">Currency</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" id="currency" placeholder="Currency">
+                </div>
+            </div>
+            <span id="no_card">
+            <% if(!use_saved_card) { %>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="card-number">Card Number</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="card-number" id="card-number" size="20" data-stripe="number" placeholder="Debit/Credit Card Number">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="expiry-month">Expiration Date</label>
+                <div class="col-sm-9">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <select class="form-control col-sm-2" id="card-expiry-month" id="expiry-month" data-stripe="exp-month">
+                                <option>Month</option>
+                                <option value="01">Jan (01)</option>
+                                <option value="02">Feb (02)</option>
+                                <option value="03">Mar (03)</option>
+                                <option value="04">Apr (04)</option>
+                                <option value="05">May (05)</option>
+                                <option value="06">June (06)</option>
+                                <option value="07">July (07)</option>
+                                <option value="08">Aug (08)</option>
+                                <option value="09">Sep (09)</option>
+                                <option value="10">Oct (10)</option>
+                                <option value="11">Nov (11)</option>
+                                <option value="12">Dec (12)</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-3">
+                            <select class="form-control" id="card-expiry-year" data-stripe="exp-year">                             
+                                <option value="16">2016</option>
+                                <option value="17">2017</option>
+                                <option value="18">2018</option>
+                                <option value="19">2019</option>
+                                <option value="20">2020</option>
+                                <option value="21">2021</option>
+                                <option value="22">2022</option>
+                                <option value="23">2023</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="cvv">Card CVC</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="cvv" id="card-cvc" data-stripe="cvc" placeholder="Security Code">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" id="remember-card"> Remember Card
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <% }%>
+            </span>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-6">
+                    <input type="button" class="btn btn-primary" id="submittransaction" name="submittransaction" value="Pay Now">
+                </div>
+            </div>
+
+            <div class="alert alert-danger" id="payment-errors" style="display:none">
+            </div>
+
+        </form>
+    </div>
+
+</div> <!-- /container -->
