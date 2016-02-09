@@ -1,5 +1,5 @@
 {
-    "mongoURI": " mongodb://songnob:test123@ds059215.mongolab.com:59215/oneup",
+    "mongoURI": "mongodb://songnob:test123@ds059215.mongolab.com:59215/oneup",
     "secret": "thisisasecret",
     "stripeApiKey": "sk_test_q4Xij5yvY3rPbEP1EgEUmoC7"
 }
